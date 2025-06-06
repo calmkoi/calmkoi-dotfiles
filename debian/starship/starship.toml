@@ -3,7 +3,7 @@
 add_newline = true
 
 format = """
-[░▒▓](#d70a53)\
+[](fg:#d70a53 bg:#a01845)\
 [  ](bg:#d70a53 fg:#ffffff)\
 [](bg:#a01845 fg:#d70a53)\
 $directory\
