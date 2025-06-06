@@ -2,10 +2,52 @@
 
 add_newline = true
 
+format = """
+[░▒▓](#d70a53)\
+[  ](bg:#d70a53 fg:#ffffff)\
+[](bg:#a01845 fg:#d70a53)\
+$directory\
+[](fg:#a01845 bg:#7a0a32)\
+$git_branch\
+$git_status\
+[](fg:#7a0a32 bg:#5a001f)\
+$nodejs\
+$rust\
+$golang\
+$php\
+[](fg:#5a001f bg:#3a0000)\
+$time\
+[ ](fg:#3a0000)\
+\n$character"""
+
+[directory]
+style = "fg:#ffffff bg:#a01845"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:#7a0a32"
+format = '[[ $symbol $branch ](fg:#ff0000 bg:#7a0a32)]($style)'
+
+[git_status]
+style = "bg:#7a0a32"
+format = '[[($all_status$ahead_behind )](fg:#ff0000 bg:#7a0a32)]($style)'
+
+[time]
+style = "bg:#3a0000"
+format = '[[  $time ](fg:#ff9999 bg:#3a0000)]($style)'
+
 [character]
 success_symbol = "[->](bold green)"
 error_symbol = "[✗](bold red)"
 
 [package]
 disabled = true
-
