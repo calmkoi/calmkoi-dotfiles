@@ -1,0 +1,54 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+[](fg:#E95420 bg:#77216F)\
+[   ](bg:#E95420 fg:#ffffff)\
+[](bg:#77216F fg:#E95420)\
+$directory\
+[](fg:#77216F bg:#5E2750)\
+$git_branch\
+$git_status\
+[](fg:#5E2750 bg:#3E1F3D)\
+$nodejs\
+$rust\
+$golang\
+$php\
+[](fg:#3E1F3D bg:#2C1426)\
+$time\
+[ ](fg:#2C1426)\
+\n$character"""
+
+[directory]
+style = "fg:#ffffff bg:#77216F"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:#5E2750"
+format = '[[ $symbol $branch ](fg:#E95420 bg:#5E2750)]($style)'
+
+[git_status]
+style = "bg:#5E2750"
+format = '[[($all_status$ahead_behind )](fg:#E95420 bg:#5E2750)]($style)'
+
+[time]
+style = "bg:#2C1426"
+format = '[[  $time ](fg:#E95420 bg:#2C1426)]($style)'
+
+[character]
+success_symbol = "[->](bold green)"
+error_symbol = "[✗](bold red)"
+
+[package]
+disabled = true
+
