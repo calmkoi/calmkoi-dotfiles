@@ -1,8 +1,13 @@
 #!/bin/bash
 # install.sh - calmkoi-dotfiles installer
 
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "calmkoi-dotfiles installer"
 echo "--------------------------"
+echo ""
+
+echo "Dotfiles directory: $DOTFILES_DIR"
 echo ""
 
 echo "NOTE: required apps (kitty, starship, zsh) must be installed first otherwise this script will not do anything!"
@@ -37,17 +42,17 @@ echo ""
 
 # --- ZSH ---
 echo "Setting up ZSH..."
-if [[ -f "zsh/.zshrc" ]]; then
-    cp zsh/.zshrc ~/.zshrc
+if [[ -f "$DOTFILES_DIR/zsh/.zshrc" ]]; then
+    cp "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
     echo "Created ~/.zshrc"
 
     # Create custom plugins directory
     mkdir -p ~/.oh-my-zsh/custom/plugins
     
-    # Copy/install plugins from your repo
-    if [[ -d "zsh/custom-plugins" ]]; then
+    # Copy/install plugins from dotfiles
+    if [[ -d "$DOTFILES_DIR/zsh/custom-plugins" ]]; then
         # symlink 
-        for plugin in zsh/custom-plugins/*/; do
+        for plugin in "$DOTFILES_DIR"/zsh/custom-plugins/*/; do
             plugin_name=$(basename "$plugin")
             ln -sf "$(pwd)/$plugin" ~/.oh-my-zsh/custom/plugins/"$plugin_name" 2>/dev/null || true
         done
@@ -63,9 +68,9 @@ fi
 
 # --- Kitty ---
 echo "Setting up Kitty..."
-if [[ -f "kitty/base.conf" && -f "kitty/themes/${THEME}.conf" ]]; then
+if [[ -f "$DOTFILES_DIR/kitty/base.conf" && -f "$DOTFILES_DIR/kitty/themes/${THEME}.conf" ]]; then
     mkdir -p ~/.config/kitty
-    cat kitty/base.conf kitty/themes/${THEME}.conf > ~/.config/kitty/kitty.conf
+    cat "$DOTFILES_DIR/kitty/base.conf" "$DOTFILES_DIR/kitty/themes/${THEME}.conf" > ~/.config/kitty/kitty.conf
     echo "Created ~/.config/kitty/kitty.conf"
 else
     echo "Warning: Kitty configs not found"
@@ -73,9 +78,10 @@ fi
 
 # --- Starship ---
 echo "Setting up Starship..."
-if [[ -f "starship/${THEME}.toml" ]]; then
+STARSHIP_SRC="$DOTFILES_DIR/starship/${THEME}.toml"
+if [[ -f "$STARSHIP_SRC" ]]; then
     mkdir -p ~/.config
-    cp starship/${THEME}.toml ~/.config/starship.toml
+    cp "$STARSHIP_SRC" ~/.config/starship.toml
     echo "Created ~/.config/starship.toml"
 else
     echo "Warning: starship/${THEME}.toml not found"
