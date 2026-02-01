@@ -46,22 +46,6 @@ if [[ -f "$DOTFILES_DIR/zsh/.zshrc" ]]; then
     cp "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
     echo "Created ~/.zshrc"
 
-    # Create custom plugins directory
-    mkdir -p ~/.oh-my-zsh/custom/plugins
-    
-    # Copy/install plugins from dotfiles
-    if [[ -d "$DOTFILES_DIR/zsh/custom-plugins" ]]; then
-        # symlink 
-        for plugin in "$DOTFILES_DIR"/zsh/custom-plugins/*/; do
-            plugin_name=$(basename "$plugin")
-            ln -sf "$(pwd)/$plugin" ~/.oh-my-zsh/custom/plugins/"$plugin_name" 2>/dev/null || true
-        done
-        echo "Symlinked custom plugins"
-    else
-        echo "Warning: zsh/custom-plugins directory not found"
-        echo "   Make sure Git submodules are initialized:"
-        echo "   git submodule update --init --recursive"
-    fi
 else
     echo "Warning: zsh/.zshrc not found"
 fi
