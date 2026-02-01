@@ -1,11 +1,21 @@
 # calmkoi-dotfiles
 
-## Current OSs and tools
+## List of Tools
 
-Debian
-MacOS
-Ubuntu
+- kitty
+- starship
+- zsh
 
-kitty
-starship
-zsh
+## List of Themes
+
+- Debian
+- MacOS
+- Ubuntu
+
+## Install
+
+```bash
+git clone --recursive git@github.com:calmkoi/calmkoi-dotfiles.git
+cd calmkoi-dotfiles
+./install.sh
+```
