@@ -60,6 +60,17 @@ else
     echo "Warning: Kitty configs not found"
 fi
 
+# --- Alacritty ---
+echo "Setting up Alacritty.."
+if [[ -f "$DOTFILES_DIR/alacritty/${THEME}.toml" ]]; then
+    mkdir -p ~/.config/alacritty
+    cp "$DOTFILES_DIR/alacritty/${THEME}.toml" ~/.config/alacritty/alacritty.toml
+
+    echo "Created ~/.config/alacritty/alacritty.toml"
+else
+    echo "Warning: Alacritty configs not found"
+fi
+
 # --- Starship ---
 echo "Setting up Starship..."
 STARSHIP_SRC="$DOTFILES_DIR/starship/${THEME}.toml"
