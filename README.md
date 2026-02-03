@@ -3,6 +3,7 @@
 ## List of Tools
 
 - kitty
+- alacritty
 - starship
 - zsh
 
