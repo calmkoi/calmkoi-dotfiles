@@ -1,0 +1,13 @@
+[window]
+dimensions = { columns = 120, lines = 35 }
+padding = { x = 10, y = 10 }
+
+[font]
+size = 14.0
+normal = { family = "FiraCode Nerd Font", style = "Regular" }
+
+[colors]
+primary = { background = "#1e1e2e", foreground = "#cdd6f4" }
+
+[terminal.shell]
+program = "/bin/zsh"
