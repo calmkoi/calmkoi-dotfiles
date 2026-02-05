@@ -1,9 +1,4 @@
-# ~/.zshrc
-
-# make sure Homebrew is part of the path
-if [[ -d "/opt/homebrew/bin" ]] && [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
-    export PATH="/opt/homebrew/bin:$PATH"
-fi
+# ~/.zshrc for Linux
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/calmkoi-dotfiles/zsh/custom"
