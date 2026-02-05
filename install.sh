@@ -3,22 +3,30 @@
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "calmkoi-dotfiles installer"
-echo "--------------------------"
+echo ""
+echo "================================"
+echo "|| calmkoi-dotfiles installer ||"
+echo "================================"
 echo ""
 
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo ""
 
-echo "NOTE: required apps (kitty, starship, zsh) must be installed first otherwise this script will not do anything!"
+echo "NOTE: apps must be installed first otherwise this script will not do anything!"
 echo ""
 
+echo "--------------------"
+echo "| OPERATING SYSTEM |"
+echo "--------------------"
 echo "Which OS are you running?"
 echo "1) Linux"
 echo "2) MacOS"
 read -p "Enter choice: " os_choice
 echo ""
 
+echo "---------"
+echo "| SHELL |"
+echo "---------"
 echo "Which shell would you prefer?"
 echo "1) zsh"
 echo "2) bash"
@@ -26,6 +34,9 @@ echo "3) fish"
 read -p "Enter choice: " shell_choice
 echo ""
 
+echo "---------"
+echo "| THEME |"
+echo "---------"
 echo "Which theme would you like to use?"
 echo "1) Debian"
 echo "2) MacOS"
@@ -33,23 +44,26 @@ echo "3) Ubuntu"
 read -p "Enter choice: " theme_choice
 echo ""
 
-echo "Configure kitty?"
-read -p "(y/n)" kitty
+echo "-------------"
+echo "| TERMINALS |"
+echo "-------------"
+read -p "Configure kitty? (y/n) " kitty
+read -p "Configure alacritty? (y/n) " alacritty
+echo ""
 
-echo "Configure alacritty?"
-read -p "(y/n)" alacritty
-
-echo "Configure starship?"
-read -p "(y/n)" starship
+echo "----------------"
+echo "| SHELL PROMPT |"
+echo "----------------"
+read -p "Configure starship? (y/n) " starship
 
 case $os_choice in
     1)
         OS="linux"
-        echo "Using $OS theme"
+        echo "Using $OS"
         ;;
     2)
         OS="macos"
-        echo "Using $OS theme"
+        echo "Using $OS"
         ;;
     *)
         echo "Invalid choice! Defaulting to macOS."
@@ -60,15 +74,15 @@ esac
 case $shell_choice in
     1)
         SHELL="zsh"
-        echo "Using $SHELL theme"
+        echo "Using $SHELL shell"
         ;;
     2)
         SHELL="bash"
-        echo "Using $SHELL theme"
+        echo "Using $SHELL shell"
         ;;
     3)
         SHELL="fish"
-        echo "Using $SHELL theme"
+        echo "Using $SHELL shell"
         ;;
     *)
         echo "Invalid choice! Defaulting to zsh."
