@@ -17,12 +17,30 @@ echo "Which OS are you running?"
 echo "1) Linux"
 echo "2) MacOS"
 read -p "Enter choice: " os_choice
+echo ""
+
+echo "Which shell would you prefer?"
+echo "1) zsh"
+echo "2) bash"
+echo "3) fish"
+read -p "Enter choice: " shell_choice
+echo ""
 
 echo "Which theme would you like to use?"
 echo "1) Debian"
 echo "2) MacOS"
 echo "3) Ubuntu"
 read -p "Enter choice: " theme_choice
+echo ""
+
+echo "Configure kitty?"
+read -p "(y/n)" kitty
+
+echo "Configure alacritty?"
+read -p "(y/n)" alacritty
+
+echo "Configure starship?"
+read -p "(y/n)" starship
 
 case $os_choice in
     1)
@@ -36,6 +54,25 @@ case $os_choice in
     *)
         echo "Invalid choice! Defaulting to macOS."
         OS="macos"
+        ;;
+esac
+
+case $shell_choice in
+    1)
+        SHELL="zsh"
+        echo "Using $SHELL theme"
+        ;;
+    2)
+        SHELL="bash"
+        echo "Using $SHELL theme"
+        ;;
+    3)
+        SHELL="fish"
+        echo "Using $SHELL theme"
+        ;;
+    *)
+        echo "Invalid choice! Defaulting to zsh."
+        SHELL="zsh"
         ;;
 esac
 
@@ -70,36 +107,52 @@ else
     echo "Warning: zsh/.zshrc not found"
 fi
 
-# --- Kitty ---
-echo "Setting up Kitty..."
-if [[ -f "$DOTFILES_DIR/kitty/base.conf" && -f "$DOTFILES_DIR/kitty/themes/${THEME}.conf" ]]; then
-    mkdir -p ~/.config/kitty
-    cat "$DOTFILES_DIR/kitty/base.conf" "$DOTFILES_DIR/kitty/themes/${THEME}.conf" > ~/.config/kitty/kitty.conf
-    echo "Created ~/.config/kitty/kitty.conf"
+# --- TODO: BASH ---
+
+# --- TODO: FISH ---
+
+# --- kitty ---
+if [[ "$kitty" == "y" ]]; then
+    echo "Setting up kitty..."
+    if [[ -f "$DOTFILES_DIR/kitty/base.conf" && -f "$DOTFILES_DIR/kitty/themes/${THEME}.conf" ]]; then
+        mkdir -p ~/.config/kitty
+        cat "$DOTFILES_DIR/kitty/base.conf" "$DOTFILES_DIR/kitty/themes/${THEME}.conf" > ~/.config/kitty/kitty.conf
+        echo "Created ~/.config/kitty/kitty.conf"
+    else
+        echo "Warning: Kitty configs not found"
+    fi
 else
-    echo "Warning: Kitty configs not found"
+    echo "Skipping kitty..."
 fi
 
-# --- Alacritty ---
-echo "Setting up Alacritty.."
-if [[ -f "$DOTFILES_DIR/alacritty/${THEME}.toml" ]]; then
-    mkdir -p ~/.config/alacritty
-    cp "$DOTFILES_DIR/alacritty/${THEME}.toml" ~/.config/alacritty/alacritty.toml
+# --- alacritty ---
+if [[ "$alacritty" == "y" ]]; then
+    echo "Setting up alacritty.."
+    if [[ -f "$DOTFILES_DIR/alacritty/${THEME}.toml" ]]; then
+        mkdir -p ~/.config/alacritty
+        cp "$DOTFILES_DIR/alacritty/${THEME}.toml" ~/.config/alacritty/alacritty.toml
 
-    echo "Created ~/.config/alacritty/alacritty.toml"
+        echo "Created ~/.config/alacritty/alacritty.toml"
+    else
+        echo "Warning: alacritty configs not found"
+    fi
 else
-    echo "Warning: Alacritty configs not found"
+    echo "Skipping alacritty..."
 fi
 
-# --- Starship ---
-echo "Setting up Starship..."
-STARSHIP_SRC="$DOTFILES_DIR/starship/${THEME}.toml"
-if [[ -f "$STARSHIP_SRC" ]]; then
-    mkdir -p ~/.config
-    cp "$STARSHIP_SRC" ~/.config/starship.toml
-    echo "Created ~/.config/starship.toml"
+# --- starship ---
+if [[ "$starship" == "y" ]]; then
+    echo "Setting up starship..."
+    STARSHIP_SRC="$DOTFILES_DIR/starship/${THEME}.toml"
+    if [[ -f "$STARSHIP_SRC" ]]; then
+        mkdir -p ~/.config
+        cp "$STARSHIP_SRC" ~/.config/starship.toml
+        echo "Created ~/.config/starship.toml"
+    else
+        echo "Warning: starship/${THEME}.toml not found"
+    fi
 else
-    echo "Warning: starship/${THEME}.toml not found"
+    echo "Skipping starship..."
 fi
 
 echo ""
