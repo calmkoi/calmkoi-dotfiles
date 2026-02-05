@@ -13,11 +13,31 @@ echo ""
 echo "NOTE: required apps (kitty, starship, zsh) must be installed first otherwise this script will not do anything!"
 echo ""
 
+echo "Which OS are you running?"
+echo "1) Linux"
+echo "2) MacOS"
+read -p "Enter choice: " os_choice
+
 echo "Which theme would you like to use?"
 echo "1) Debian"
 echo "2) MacOS"
 echo "3) Ubuntu"
 read -p "Enter choice: " theme_choice
+
+case $os_choice in
+    1)
+        OS="linux"
+        echo "Using $OS theme"
+        ;;
+    2)
+        OS="macos"
+        echo "Using $OS theme"
+        ;;
+    *)
+        echo "Invalid choice! Defaulting to macOS."
+        OS="macos"
+        ;;
+esac
 
 case $theme_choice in
     1)
@@ -42,8 +62,8 @@ echo ""
 
 # --- ZSH ---
 echo "Setting up ZSH..."
-if [[ -f "$DOTFILES_DIR/zsh/.zshrc" ]]; then
-    cp "$DOTFILES_DIR/zsh/.zshrc" ~/.zshrc
+if [[ -f "$DOTFILES_DIR/zsh/.$OS" ]]; then
+    cp "$DOTFILES_DIR/zsh/.$OS" ~/.zshrc
     echo "Created ~/.zshrc"
 
 else
