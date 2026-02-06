@@ -21,6 +21,20 @@ echo "--------------------"
 echo "Which OS are you running?"
 echo "1) Linux"
 echo "2) MacOS"
+AUTO_OS=""
+if [[ -n "$OSTYPE" ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        AUTO_OS="macos"
+        echo "3) Auto-detect (MacOS)"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        AUTO_OS="linux"
+        echo "3) Auto-detect (Linux)"
+    else
+        echo "Auto-detect OS failed"
+    fi
+else
+    echo "Auto-detect OS failed"
+fi
 read -p "Enter choice: " os_choice
 echo ""
 
@@ -55,6 +69,11 @@ echo "----------------"
 echo "| SHELL PROMPT |"
 echo "----------------"
 read -p "Configure starship? (y/n) " starship
+echo ""
+
+echo "----------------"
+echo "| INSTALLATION |"
+echo "----------------"
 
 case $os_choice in
     1)
@@ -64,6 +83,15 @@ case $os_choice in
     2)
         OS="macos"
         echo "Using $OS"
+        ;;
+    3|"")
+        if [[ -n "$AUTO_OS" ]]; then
+            OS="$AUTO_OS"
+            echo "Using auto-detected OS: $OS"
+        else
+            OS="macos"
+            echo "Could not auto-detect OS, defaulting to macOS"
+        fi
         ;;
     *)
         echo "Invalid choice! Defaulting to macOS."
