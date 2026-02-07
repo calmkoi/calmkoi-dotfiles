@@ -32,22 +32,26 @@ if [[ -n "$OSTYPE" ]]; then
 
         # Detect linux distribution
         if [[ -f /etc/os-release ]]; then
-        source /etc/os-release
-        case $ID in
-            debian|ubuntu)
-                AUTO_DISTRO="$ID"
-                ;;
-            arch)
-                AUTO_DISTRO="arch"
-                ;;
-            fedora)
-                AUTO_DISTRO="fedora"
-                ;;
-            *)
-                AUTO_DISTRO="linux"
-                ;;
-        esac
-        echo "3) Auto-detect (${AUTO_DISTRO})"
+            source /etc/os-release
+            case $ID in
+                debian|ubuntu)
+                    AUTO_DISTRO="$ID"
+                    ;;
+                arch)
+                    AUTO_DISTRO="arch"
+                    ;;
+                fedora)
+                    AUTO_DISTRO="fedora"
+                    ;;
+                *)
+                    AUTO_DISTRO="linux"
+                    ;;
+            esac
+            echo "3) Auto-detect (${AUTO_DISTRO})"
+        else
+            AUTO_DISTRO="linux"
+            echo "3) Linux (auto-detect distro failed)"
+        fi
     else
         echo "Auto-detect OS failed"
     fi
