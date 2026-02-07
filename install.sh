@@ -122,6 +122,12 @@ case $os_choice in
         ;;
 esac
 
+if [[ "$OS" == "linux" ]]; then
+    DISTRO="$AUTO_DISTRO"
+else
+    DISTRO="$OS"
+fi
+
 case $shell_choice in
     1)
         SHELL="zsh"
@@ -175,8 +181,8 @@ echo ""
 # --- ZSH ---
 if [[ "$SHELL" == "zsh" ]]; then
     echo "Setting up ZSH..."
-    if [[ -f "$DOTFILES_DIR/zsh/.$OS" ]]; then
-        cp "$DOTFILES_DIR/zsh/.$OS" ~/.zshrc
+    if [[ -f "$DOTFILES_DIR/zsh/.$DISTRO" ]]; then
+        cp "$DOTFILES_DIR/zsh/.$DISTRO" ~/.zshrc
         echo "Created ~/.zshrc"
 
     else
@@ -244,11 +250,11 @@ if [[ "$starship" == "y" ]]; then
     fi
     
     # Load OS-specific settings (overrides)
-    if [[ -f "$DOTFILES_DIR/starship/os/${OS}.env" ]]; then
-        source "$DOTFILES_DIR/starship/os/${OS}.env"
-        echo "Loaded $OS symbols and modules"
+    if [[ -f "$DOTFILES_DIR/starship/os/${DISTRO}.env" ]]; then
+        source "$DOTFILES_DIR/starship/os/${DISTRO}.env"
+        echo "Loaded $DISTRO symbols and modules"
     else
-        echo "No OS file: starship/os/${OS}.env"
+        echo "No OS file: starship/os/${DISTRO}.env"
     fi
     
     # Generate the config
