@@ -10,10 +10,10 @@ ${DOLLAR}directory\
 [](fg:${BG1_COLOR} bg:${BG2_COLOR})\
 ${DOLLAR}git_branch\
 ${DOLLAR}git_status\
-${NODEJS}\
-${RUST}\
-${GOLANG}\
-${PHP}\
+${DOLLAR}nodejs\
+${DOLLAR}rust\
+${DOLLAR}golang\
+${DOLLAR}php\
 [](fg:${BG2_COLOR} bg:${BG3_COLOR})\
 ${DOLLAR}time\
 \n${DOLLAR}character"""
@@ -31,7 +31,7 @@ truncation_symbol = "…/"
 "Pictures" = "${PICTURES_ICON}"
 
 [git_branch]
-symbol = "${GIT_SYMBOL}"
+symbol = ""
 style = "bg:${BG2_COLOR}"
 format = '[[ ${DOLLAR}symbol ${DOLLAR}branch ](fg:${GIT_COLOR} bg:${BG2_COLOR})](${DOLLAR}style)'
 
