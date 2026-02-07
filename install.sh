@@ -150,18 +150,26 @@ fi
 echo ""
 
 # --- ZSH ---
-echo "Setting up ZSH..."
-if [[ -f "$DOTFILES_DIR/zsh/.$OS" ]]; then
-    cp "$DOTFILES_DIR/zsh/.$OS" ~/.zshrc
-    echo "Created ~/.zshrc"
+if [[ "$SHELL" == "zsh" ]]; then
+    echo "Setting up ZSH..."
+    if [[ -f "$DOTFILES_DIR/zsh/.$OS" ]]; then
+        cp "$DOTFILES_DIR/zsh/.$OS" ~/.zshrc
+        echo "Created ~/.zshrc"
 
-else
-    echo "Warning: zsh/.zshrc not found"
-fi
-
-# --- TODO: BASH ---
-
+    else
+        echo "Warning: zsh/.zshrc not found"
+    fi
+# --- BASH ---
+elif [[ "$SHELL" == "bash" ]]; then
+    echo "Setting up BASH..."
+    echo "Note: bash configuration not yet implemented"
+    echo ""
 # --- TODO: FISH ---
+elif [[ "$SHELL" == "fish" ]]; then
+    echo "Setting up FISH..."
+    echo "Note: fish configuration not yet implemented"
+    echo ""
+fi
 
 # --- kitty ---
 if [[ "$kitty" == "y" ]]; then
