@@ -1,0 +1,51 @@
+"${DOLLAR}schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+[](fg:${ACCENT_COLOR} bg:${BG1_COLOR})\
+${OS_ICON}\
+[](bg:${BG1_COLOR} fg:${ACCENT_COLOR})\
+${DOLLAR}directory\
+[](fg:${BG1_COLOR} bg:${BG2_COLOR})\
+${DOLLAR}git_branch\
+${DOLLAR}git_status\
+${NODEJS}\
+${RUST}\
+${GOLANG}\
+${PHP}\
+[](fg:${BG2_COLOR} bg:${BG3_COLOR})\
+${DOLLAR}time\
+\n${DOLLAR}character"""
+
+[directory]
+style = "fg:${TEXT_COLOR} bg:${BG1_COLOR}"
+format = "[ ${DOLLAR}path ](${DOLLAR}style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "${DOCUMENTS_ICON}"
+"Downloads" = "${DOWNLOADS_ICON}"
+"Music" = "${MUSIC_ICON}"
+"Pictures" = "${PICTURES_ICON}"
+
+[git_branch]
+symbol = "${GIT_SYMBOL}"
+style = "bg:${BG2_COLOR}"
+format = '[[ ${DOLLAR}symbol ${DOLLAR}branch ](fg:${GIT_COLOR} bg:${BG2_COLOR})](${DOLLAR}style)'
+
+[git_status]
+style = "bg:${BG2_COLOR}"
+format = '[[(${DOLLAR}all_status${DOLLAR}ahead_behind )](fg:${GIT_STATUS_COLOR} bg:${BG2_COLOR})](${DOLLAR}style)'
+
+[time]
+style = "bg:${BG3_COLOR}"
+format = '[[ ${TIME_SYMBOL} ${DOLLAR}time ](fg:${TIME_COLOR} bg:${BG3_COLOR})](${DOLLAR}style)'
+
+[character]
+success_symbol = "[➜](bold ${SUCCESS_COLOR})" 
+error_symbol = "[✗](bold ${ERROR_COLOR})"
+
+[package]
+disabled = true

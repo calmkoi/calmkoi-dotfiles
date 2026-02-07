@@ -22,6 +22,7 @@ echo "Which OS are you running?"
 echo "1) Linux"
 echo "2) MacOS"
 AUTO_OS=""
+AUTO_DISTRO=""
 if [[ -n "$OSTYPE" ]]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         AUTO_OS="macos"
@@ -139,7 +140,7 @@ esac
 
 echo ""
 
-# --- Initialise Git Submodules...
+# --- Initialise Git Submodules ---
 echo "Checking and initialising git submodules..."
 if [[ -f "$DOTFILES_DIR/.gitmodules" ]]; then
     (cd "$DOTFILES_DIR" && git submodule update --init --recursive 2>/dev/null || true)
@@ -187,7 +188,7 @@ fi
 
 # --- alacritty ---
 if [[ "$alacritty" == "y" ]]; then
-    echo "Setting up alacritty.."
+    echo "Setting up alacritty..."
     if [[ -f "$DOTFILES_DIR/alacritty/${THEME}.toml" ]]; then
         mkdir -p ~/.config/alacritty
         cp "$DOTFILES_DIR/alacritty/${THEME}.toml" ~/.config/alacritty/alacritty.toml
@@ -203,13 +204,41 @@ fi
 # --- starship ---
 if [[ "$starship" == "y" ]]; then
     echo "Setting up starship..."
-    STARSHIP_SRC="$DOTFILES_DIR/starship/${THEME}.toml"
-    if [[ -f "$STARSHIP_SRC" ]]; then
+    # Clear all starship variables
+    unset ACCENT_COLOR BG1_COLOR BG2_COLOR BG3_COLOR TEXT_COLOR
+    unset GIT_COLOR GIT_STATUS_COLOR TIME_COLOR SUCCESS_COLOR ERROR_COLOR
+    unset DOCUMENTS_ICON DOWNLOADS_ICON MUSIC_ICON PICTURES_ICON
+    unset OS_ICON GIT_SYMBOL TIME_SYMBOL
+    unset NODEJS RUST GOLANG PHP
+    
+    # Load theme colors first
+    if [[ -f "$DOTFILES_DIR/starship/themes/${THEME}.env" ]]; then
+        source "$DOTFILES_DIR/starship/themes/${THEME}.env"
+        echo "Loaded $THEME theme colors"
+    else
+        echo "No theme file: starship/themes/${THEME}.env"
+        # Fallback to default
+        source "$DOTFILES_DIR/starship/themes/macos.env" 2>/dev/null || true
+    fi
+    
+    # Load OS-specific settings (overrides)
+    if [[ -f "$DOTFILES_DIR/starship/os/${OS}.env" ]]; then
+        source "$DOTFILES_DIR/starship/os/${OS}.env"
+        echo "Loaded $OS symbols and modules"
+    else
+        echo "No OS file: starship/os/${OS}.env"
+    fi
+    
+    # Generate the config
+    if [[ -f "$DOTFILES_DIR/starship/template.toml" ]]; then
         mkdir -p ~/.config
-        cp "$STARSHIP_SRC" ~/.config/starship.toml
+        
+        # Use envsubst to replace all variables
+        envsubst < "$DOTFILES_DIR/starship/template.toml" > ~/.config/starship.toml
+        
         echo "Created ~/.config/starship.toml"
     else
-        echo "Warning: starship/${THEME}.toml not found"
+        echo "Template not found: starship/template.toml"
     fi
 else
     echo "Skipping starship..."
