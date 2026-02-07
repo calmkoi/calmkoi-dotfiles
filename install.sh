@@ -29,7 +29,25 @@ if [[ -n "$OSTYPE" ]]; then
         echo "3) Auto-detect (MacOS)"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         AUTO_OS="linux"
-        echo "3) Auto-detect (Linux)"
+
+        # Detect linux distribution
+        if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+        case $ID in
+            debian|ubuntu)
+                AUTO_DISTRO="$ID"
+                ;;
+            arch)
+                AUTO_DISTRO="arch"
+                ;;
+            fedora)
+                AUTO_DISTRO="fedora"
+                ;;
+            *)
+                AUTO_DISTRO="linux"
+                ;;
+        esac
+        echo "3) Auto-detect (${AUTO_DISTRO})"
     else
         echo "Auto-detect OS failed"
     fi
