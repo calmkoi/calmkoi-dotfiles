@@ -139,6 +139,16 @@ esac
 
 echo ""
 
+# --- Initialise Git Submodules...
+echo "Checking and initialising git submodules..."
+if [[ -f "$DOTFILES_DIR/.gitmodules" ]]; then
+    (cd "$DOTFILES_DIR" && git submodule update --init --recursive 2>/dev/null || true)
+    echo "Git submodules initialised"
+else
+    echo "No .gitmodules found"
+fi
+echo ""
+
 # --- ZSH ---
 echo "Setting up ZSH..."
 if [[ -f "$DOTFILES_DIR/zsh/.$OS" ]]; then
